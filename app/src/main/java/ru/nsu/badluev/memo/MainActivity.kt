@@ -8,6 +8,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -19,6 +21,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -37,7 +40,7 @@ class MainActivity : ComponentActivity() {
             MemoTheme {
                 var showInput by remember { mutableStateOf(false) }
                 var noteText by remember { mutableStateOf("") }
-                var savedNote by remember { mutableStateOf("") }
+                val notes = remember { mutableStateListOf<String>() }
                 Scaffold(modifier = Modifier.fillMaxSize(), topBar = {TopAppBar(title = {Text("Мои заметки")})},
                     floatingActionButton = {FloatingActionButton(onClick = {showInput = true}) {Icon(
                         imageVector = Icons.Default.Add,
@@ -56,18 +59,28 @@ class MainActivity : ComponentActivity() {
                                 modifier = Modifier.padding(innerPadding)
                             )
                             OutlinedButton(onClick = {
-                                savedNote = noteText
+                                notes.add(noteText)
                                 noteText = ""
                                 showInput = false
                             }) { Text("Сохранить") }
                         }
-                        if (savedNote.isNotEmpty()) {
+                        if (notes.isEmpty()) {
                             Text(
-                                text = "Сохраненная заметка: $savedNote",
-                                modifier = Modifier.padding(top = 32.dp)
+                                text = "Заметок пока нет",
+                                modifier = Modifier.padding(top = 16.dp)
                             )
                         }
-
+                        else{
+                            LazyColumn(modifier = Modifier.padding(top = 16.dp))
+                            {
+                                items(notes) { note ->
+                                    Text(
+                                        text = note,
+                                        modifier = Modifier.padding(top = 8.dp)
+                                    )
+                                }
+                            }
+                        }
                     }
                 }
             }
