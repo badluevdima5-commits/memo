@@ -7,11 +7,14 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -71,15 +74,20 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         else{
-                            LazyColumn(modifier = Modifier.padding(top = 16.dp))
-                            {
-                                items(notes) { note ->
-                                    Text(
-                                        text = note,
-                                        modifier = Modifier.padding(top = 8.dp)
-                                    )
+                            LazyColumn(modifier = Modifier.padding(top = 16.dp)) {
+                                itemsIndexed(notes) { index, note ->
+                                    Card(
+                                        modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
+                                        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+                                    ) {
+                                        Text(
+                                            text = "Заметка ${index + 1}: $note",
+                                            modifier = Modifier.padding(16.dp)
+                                        )
+                                    }
                                 }
                             }
+
                         }
                     }
                 }
