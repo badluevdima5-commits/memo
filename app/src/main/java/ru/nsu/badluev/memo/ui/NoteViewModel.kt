@@ -9,20 +9,18 @@ import ru.nsu.badluev.memo.data.NoteEntity
 
 class NoteViewModel(application: Application) : AndroidViewModel(application) {
     private val noteDao = NoteDatabase.getDatabase(application).noteDao()
-
     val notes = noteDao.getAllNotes()
 
-    fun saveNote(title: String, text: String) {
+    fun saveNote(existingNote: NoteEntity?, title: String, text: String) {
         viewModelScope.launch {
-            noteDao.insertNote(
-                NoteEntity(
-                    title = title,
-                    content = text
-                )
-            )
+            val note = existingNote?.copy(
+                title = title,
+                content = text
+            ) ?: NoteEntity(title = title, content = text)
+
+            noteDao.insertNote(note)
         }
     }
-
     fun deleteNote(note: NoteEntity) {
         viewModelScope.launch {
             noteDao.deleteNote(note)
