@@ -19,21 +19,6 @@
 | **Архитектура** | MVVM (ViewModel + StateFlow) |
 | **БД** | Room Persistence Library |
 
-## Структура проекта
-
-Проект организован по функциональным слоям:
-
-```text
-ru.nsu.badluev.memo
-├── data/
-│   ├── NoteDao.kt       # Интерфейс запросов к базе данных
-│   ├── NoteDatabase.kt  # Конфигурация БД Room (Singleton)
-│   └── NoteEntity.kt    # Описание таблицы "notes"
-└── ui/
-    ├── theme/           # Темы, цвета и шрифты Material 3
-    ├── NoteViewModel.kt # Логика и связь UI с данными
-    └── MainActivity.kt  # Точка входа и все Compose-экраны
-```
 ## 📱 Скриншоты
 
 <div align="center">
