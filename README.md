@@ -33,6 +33,12 @@ ru.nsu.badluev.memo
     ├── theme/           # Темы, цвета и шрифты Material 3
     ├── NoteViewModel.kt # Логика и связь UI с данными
     └── MainActivity.kt  # Точка входа и все Compose-экраны
+```
 ## 📱 Скриншоты
 
-![Главный экран со списком заметок](screenshots/main_list.png)
+<div align="center">
+  <img src="screenshots/main_list.png" width="200"/>
+  <img src="screenshots/new_note.png" width="200"/>
+  <img src="screenshots/note.png" width="200"/>
+  <img src="screenshots/look.png" width="200"/>
+</div>
